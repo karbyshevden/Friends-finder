@@ -1,4 +1,4 @@
-package com.karbyshev.friendsfinder.fragment
+package com.karbyshev.friendsfinder.ui.fragments.list
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -10,7 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.karbyshev.friendsfinder.R
-import com.karbyshev.friendsfinder.viewModel.MyViewModel
+import com.karbyshev.friendsfinder.ui.fragments.list.adapter.ListAdapter
+import com.karbyshev.friendsfinder.viewModel.MainViewModel
 
 class ListFragment : Fragment() {
     private lateinit var rootView: View
@@ -26,7 +27,7 @@ class ListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.listRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        var model: MyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        var model: MainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         model.getUsers().observe(this, Observer { newUsers ->
             var adapter = ListAdapter(newUsers!!)
             recyclerView.adapter = adapter

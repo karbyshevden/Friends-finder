@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class FirebaseQueryLiveData : LiveData<DataSnapshot> {
+class FirebaseLiveData : LiveData<DataSnapshot> {
 
     private var ref: DatabaseReference
 

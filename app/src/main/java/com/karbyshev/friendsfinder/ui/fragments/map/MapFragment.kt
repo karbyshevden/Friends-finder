@@ -1,4 +1,4 @@
-package com.karbyshev.friendsfinder.fragment
+package com.karbyshev.friendsfinder.ui.fragments.map
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -23,15 +23,17 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.karbyshev.friendsfinder.util.Constants
-import com.karbyshev.friendsfinder.util.Constants.Companion.LOCATION_PERMISSION_REQUEST_CODE
-import com.karbyshev.friendsfinder.util.Constants.Companion.NAME
 import com.karbyshev.friendsfinder.R
 import com.karbyshev.friendsfinder.model.User
-import com.karbyshev.friendsfinder.viewModel.MyViewModel
+import com.karbyshev.friendsfinder.viewModel.MainViewModel
 import org.jetbrains.anko.support.v4.toast
 
 class MapFragment : Fragment(), OnMapReadyCallback {
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        private const val NAME: String = "NAME"
+        private const val PREFS_FILENAME = "com.karbyshev.friensfinder.prefs"
+    }
 
     private lateinit var username: String
 
@@ -49,7 +51,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prefs = activity!!.getSharedPreferences(Constants.PREFS_FILENAME, 0)
+        prefs = activity!!.getSharedPreferences(PREFS_FILENAME, 0)
         username = prefs!!.getString(NAME, "root")
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
@@ -109,7 +111,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addMarker() {
-        var model: MyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        var model: MainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         model.getUsers().observe(this, Observer { newUsers ->
             mMap.clear()
             for (i in newUsers!!.withIndex()){
