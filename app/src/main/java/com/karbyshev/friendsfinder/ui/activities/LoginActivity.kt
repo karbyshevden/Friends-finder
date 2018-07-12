@@ -2,12 +2,12 @@ package com.karbyshev.friendsfinder.ui.activities
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import com.karbyshev.friendsfinder.App
 import com.karbyshev.friendsfinder.R
 import com.karbyshev.friendsfinder.databinding.ActivityLoginBinding
 import com.karbyshev.friendsfinder.viewModel.LoginViewModel
@@ -20,11 +20,9 @@ class LoginActivity : AppCompatActivity(), LoginResultCallbacks {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val NAME: String = "NAME"
-        private const val PREFS_FILENAME = "com.karbyshev.friensfinder.prefs"
     }
 
     private lateinit var name: String
-    private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +34,7 @@ class LoginActivity : AppCompatActivity(), LoginResultCallbacks {
 
         checkPermission()
 
-        pref = this.getSharedPreferences(PREFS_FILENAME, 0)
-        name = pref.getString(NAME, "")
+        name = App.preferences.getString(NAME, "")
 
         if (!name.isEmpty()){
             val intent = Intent(this, MainActivity::class.java)
@@ -49,7 +46,7 @@ class LoginActivity : AppCompatActivity(), LoginResultCallbacks {
     override fun onSuccess() {
             name = welcomeEditText.text.toString()
 
-            val editor = pref.edit()
+            val editor = App.preferences.edit()
             editor.putString(NAME, name)
             editor.apply()
 

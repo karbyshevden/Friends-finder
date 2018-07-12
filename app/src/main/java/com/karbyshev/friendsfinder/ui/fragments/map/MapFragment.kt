@@ -111,13 +111,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addMarker() {
-        var model: MainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val model: MainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         model.getUsers().observe(this, Observer { newUsers ->
             mMap.clear()
             for (i in newUsers!!.withIndex()){
-                var lat: Double = newUsers.get(i.index).lat.toDouble()
-                var lng: Double = newUsers.get(i.index).lng.toDouble()
-                var name: String = newUsers.get(i.index).name
+                val lat: Double = newUsers.get(i.index).lat.toDouble()
+                val lng: Double = newUsers.get(i.index).lng.toDouble()
+                val name: String = newUsers.get(i.index).name
 
                 createMarker(lat, lng, name)
             }

@@ -8,7 +8,11 @@ class LoginUser(private var name: String) : BaseObservable() {
     val isDataValid: Boolean
         get() = (!TextUtils.isEmpty(name))
 
-    fun setName(name: String){
+    fun setName(name: String) {
         this.name = name
+    }
+
+    fun getName(): String {
+        return name
     }
 }

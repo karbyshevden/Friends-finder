@@ -1,6 +1,7 @@
 package com.karbyshev.friendsfinder.viewModel
 
 import android.arch.lifecycle.ViewModel
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
